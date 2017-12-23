@@ -3,8 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ForeignExchange.Views.MainView"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS="20,30,20,10" Android="10,10,10,10"></OnPlatform>
+    </ContentPage.Padding>
     <ContentPage.Content>
-        <StackLayout Padding="30">
+        <StackLayout >
             <Label Text="Foreign Exchange"
                    FontSize="Large"
                    FontAttributes="Bold"
