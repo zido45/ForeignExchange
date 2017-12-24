@@ -128,4 +128,7 @@
       <Name>ForeignExchange</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\change.png" />
+  </ItemGroup>
 </Project>
