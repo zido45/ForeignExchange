@@ -76,12 +76,16 @@
 
                 <Image
                     Grid.RowSpan="2"
-                    HeightRequest="20"
-                    WidthRequest="20"
+                    HeightRequest="10"
+                    WidthRequest="10"
                     Grid.Row="1"
                     Grid.Column="2"
                     Source="change.png">
-                    
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangeCommand}">
+                            
+                        </TapGestureRecognizer>
+                    </Image.GestureRecognizers>
                 </Image>
             </Grid>
 

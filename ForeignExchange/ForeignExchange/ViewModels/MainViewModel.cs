@@ -24,6 +24,8 @@ namespace ForeignExchange.ViewModels
         string _result;
         bool _isenabled;
         ObservableCollection<Rate> _rates;
+        Rate _sourceRate;
+        Rate _targetRate;
         #endregion
 
 
@@ -47,8 +49,35 @@ namespace ForeignExchange.ViewModels
 
 
         }
-        public Rate SourceRate { get; set; }
-        public Rate TargetRate { get; set; }
+        public Rate SourceRate {
+            get
+            {
+                return _sourceRate;
+            }
+            set
+            {
+                if (_sourceRate != value)
+                {
+                    _sourceRate = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SourceRate)));
+                }
+            }
+        }
+        public Rate TargetRate {
+            get
+            {
+                return _targetRate;
+            }
+            set
+            {
+                if (_targetRate != value)
+                {
+                    _targetRate = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TargetRate)));
+                }
+            }
+
+        }
         public bool IsRunning {
             get {
                 return _isRunning;
@@ -102,9 +131,24 @@ namespace ForeignExchange.ViewModels
             }
         }
 
-      
 
-        async  private void Convert()
+        public ICommand ChangeCommand
+        {
+            get
+            {
+                return new RelayCommand(Change);
+            }
+        }
+
+         private void Change()
+        {
+            var aux = SourceRate;
+            SourceRate = TargetRate;
+            TargetRate = aux;
+            Convert();
+        }
+
+        async private void Convert()
         {
             if (string.IsNullOrEmpty(Amount))
             {
