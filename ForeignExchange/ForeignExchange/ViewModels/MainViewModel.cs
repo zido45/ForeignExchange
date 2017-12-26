@@ -2,6 +2,7 @@
 
 namespace ForeignExchange.ViewModels
 {
+    using ForeignExchange.Helpers;
     using GalaSoft.MvvmLight.Command;
     using Models;
     using Newtonsoft.Json;
@@ -153,36 +154,36 @@ namespace ForeignExchange.ViewModels
             if (string.IsNullOrEmpty(Amount))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must enter a value in amount",
-                    "Accept");
+                    Lenguages.ErrorTitle,
+                    Lenguages.AmountValidation,
+                     Lenguages.Accept);
                 return;
             }
 
             if (!decimal.TryParse(Amount, out decimal amount))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                "Error",
-                "You must enter a numeric value in amount",
-                "Accept");
+                Lenguages.ErrorTitle,
+                  Lenguages.ValueValidation,
+                Lenguages.Accept);
                 return;
             }
 
             if (SourceRate==null)
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must select a source rate",
-                    "Accept");
+                   Lenguages.ErrorTitle,
+                   Lenguages.SourceRate,
+                   Lenguages.Accept);
                 return;
             }
 
             if (TargetRate == null)
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
-                    "You must select a target rate",
-                    "Accept");
+                    Lenguages.ErrorTitle,
+                   Lenguages.TargetRate,
+                   Lenguages.Accept);
                 return;
             }
 
@@ -204,7 +205,7 @@ namespace ForeignExchange.ViewModels
         async void LoadRates()
         {
             IsRunning = true;
-            Result = "Loading rates...";
+            Result = Lenguages.LoadingRates;
 
             try
             {
@@ -225,7 +226,7 @@ namespace ForeignExchange.ViewModels
                 // hay que convertirlo en una observable collection
                 Rates = new ObservableCollection<Rate>(rates);
                 IsRunning = false;
-                Result = "Ready to convert";
+                Result = Lenguages.ReadytoConvert;
                 IsEnabled = true;
             }
             catch (Exception ex)

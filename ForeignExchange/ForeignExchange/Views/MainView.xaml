@@ -1,14 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:i18n="clr-namespace:ForeignExchange.Helpers"
              x:Class="ForeignExchange.Views.MainView"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
+    
+    
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness" iOS="20,30,20,10" Android="10,10,10,10"></OnPlatform>
     </ContentPage.Padding>
     <ContentPage.Content>
         <StackLayout >
-            <Label Text="Foreign Exchange"
+            <Label 
+                Text="{i18n:Translate Title}"
                    FontSize="Large"
                    FontAttributes="Bold"
                    Margin="10"
@@ -26,33 +30,33 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width=".5*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width=".5*"></ColumnDefinition>
+                    <ColumnDefinition Width=".3*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Label 
                     Grid.Row="0"
                     Grid.Column="0"
                     VerticalOptions="Center"
-                    Text="Amount" />
+                    Text=""  />
 
                 <Entry 
                    Grid.Row="0"
                    Grid.Column="1"
                    Grid.ColumnSpan="2"
-                   Placeholder="Enter the amount to convert" 
+                   Placeholder="" 
                    Text="{Binding Amount, 
                    Mode=TwoWay}">
 
                 </Entry>
 
                 <Label 
-                    Text="Source rate:"
+                    Text="" 
                    Grid.Row="1"
                    Grid.Column="0"
                     VerticalOptions="Center"
                     ></Label>
 
                 <Picker 
-                    Title="Select a source rate" 
+                    Title="" 
                    Grid.Row="1"
                    Grid.Column="1"
                    ItemsSource="{Binding Rates}"
@@ -60,12 +64,12 @@
                    SelectedItem="{Binding SourceRate , Mode=TwoWay}">
                 </Picker>
 
-                <Label Text="Target rate:"
+                <Label Text="" 
                        VerticalOptions="Center"
                        Grid.Row="2"
                         Grid.Column="0"></Label>
 
-                <Picker Title="Select a target rate" 
+                <Picker Title=""  
                     ItemsSource="{Binding Rates}"
                     ItemDisplayBinding="{Binding Name}"
                     Grid.Row="2"
