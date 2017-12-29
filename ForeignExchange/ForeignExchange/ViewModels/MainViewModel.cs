@@ -3,6 +3,7 @@
 namespace ForeignExchange.ViewModels
 {
     using ForeignExchange.Helpers;
+    using ForeignExchange.Services;
     using GalaSoft.MvvmLight.Command;
     using Models;
     using Newtonsoft.Json;
@@ -11,8 +12,10 @@ namespace ForeignExchange.ViewModels
     using System.Collections.ObjectModel;
     using System.ComponentModel;
     using System.Net.Http;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using Xamarin.Forms;
+ 
 
     public class MainViewModel : INotifyPropertyChanged
     {
@@ -27,10 +30,34 @@ namespace ForeignExchange.ViewModels
         ObservableCollection<Rate> _rates;
         Rate _sourceRate;
         Rate _targetRate;
+        String _status;
+        List<Rate> rates;
         #endregion
 
+        #region Services
+        ApiService apiService;
+        DialogService dialogservice;
+        DataService dataService;
+        #endregion
 
         #region Propiedades
+
+        public String Status {
+
+            get
+            {
+                return _status;
+            }
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Status)));
+                }
+            }
+
+        }
         public string Amount { get; set; }
         public ObservableCollection<Rate> Rates {
 
@@ -153,37 +180,28 @@ namespace ForeignExchange.ViewModels
         {
             if (string.IsNullOrEmpty(Amount))
             {
-                await Application.Current.MainPage.DisplayAlert(
-                    Lenguages.ErrorTitle,
-                    Lenguages.AmountValidation,
-                     Lenguages.Accept);
+
+                await dialogservice.ShowMessage(Lenguages.Title, "You must enter a value in amount");
+          
                 return;
             }
 
             if (!decimal.TryParse(Amount, out decimal amount))
             {
-                await Application.Current.MainPage.DisplayAlert(
-                Lenguages.ErrorTitle,
-                  Lenguages.ValueValidation,
-                Lenguages.Accept);
+                await dialogservice.ShowMessage(Lenguages.Title, "You must enter a numeric value in amount");
                 return;
             }
 
             if (SourceRate==null)
             {
-                await Application.Current.MainPage.DisplayAlert(
-                   Lenguages.ErrorTitle,
-                   Lenguages.SourceRate,
-                   Lenguages.Accept);
+                await dialogservice.ShowMessage(Lenguages.Title, "You must select a source rate");
                 return;
             }
 
             if (TargetRate == null)
             {
-                await Application.Current.MainPage.DisplayAlert(
-                    Lenguages.ErrorTitle,
-                   Lenguages.TargetRate,
-                   Lenguages.Accept);
+                await dialogservice.ShowMessage(Lenguages.Title, "You must select a target rate");
+
                 return;
             }
 
@@ -196,6 +214,9 @@ namespace ForeignExchange.ViewModels
 
         public MainViewModel()
         {
+            apiService = new ApiService();
+            dataService = new DataService();
+            dialogservice = new DialogService();
             LoadRates(); 
             
         }
@@ -204,37 +225,62 @@ namespace ForeignExchange.ViewModels
 
         async void LoadRates()
         {
+
             IsRunning = true;
-            Result = Lenguages.LoadingRates;
-
-            try
+            Result = "Loading rates...";
+            var connection = await apiService.CheckConnection();
+            if (!connection.IsSuccess)
             {
-                var client = new HttpClient(); //instanciamos el cliente para consumir
-                client.BaseAddress = new Uri("http://apiexchangerates.azurewebsites.net"); //definimos la url base del servicio
-                var controller = "/api/rates"; //resto de la direccion del servicio
-                //hasta hora solo hemos puesto las balas a la pistola pero aun no hemos disparado
-                var response = await client.GetAsync(controller); //aqui disparamos
-                var result = await response.Content.ReadAsStringAsync();
+                //IsRunning = false;
+                //Result = connection.Message;
+                //return;
 
-                if(!response.IsSuccessStatusCode)
-                {
-                    IsRunning = false;
-                    Result = result;
-                }
-                //si si hay resultado hay que convertir el string al objeto deseado en este caso una lista de rates
-                var rates = JsonConvert.DeserializeObject<List<Rate>>(result);
-                // hay que convertirlo en una observable collection
-                Rates = new ObservableCollection<Rate>(rates);
-                IsRunning = false;
-                Result = Lenguages.ReadytoConvert;
-                IsEnabled = true;
+                LoadLocalData();
             }
-            catch (Exception ex)
+            else
             {
-
-                IsRunning = false;
-                Result = ex.Message;
+                await LoaDataFromApi();
             }
+
+            if (rates.Count==0)
+            {
+                IsRunning = false;
+                IsEnabled = false;
+                Result = "No hay conexion con internet y no hay precarga de datos";
+                return;
+            }
+
+            Rates = new ObservableCollection<Rate>(rates);
+            IsRunning = false;
+            IsEnabled = true;
+            Result = "Ready to convert";
+           // Status = "Rates Loaded from internet";
+        }
+
+        async Task LoaDataFromApi()
+        {
+            var url = "http://apiexchangerates.azurewebsites.net"; //Application.Current.Resources["URLAPI"].ToString();
+            var response = await apiService.GetList<Rate>(url, "api/rates");
+            if (!response.IsSuccess)
+            {
+                // IsRunning = false;
+                // Result = response.Message;
+                //  return;
+                LoadLocalData();
+                return;
+            }
+            Status = "Datos cargados desde internet";
+            //Storage data local
+            rates = (List<Rate>)response.Result;
+            dataService.DeleteAll<Rate>();
+            dataService.Save(rates);
+            IsRunning = false;
+        }
+
+        private void LoadLocalData()
+        {
+            rates = dataService.Get<Rate>();
+            Status = "Datos cargados desde local";
         }
         #endregion
     }

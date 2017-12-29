@@ -61,137 +61,20 @@ namespace ForeignExchange.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Accept.
+        ///   Busca una cadena traducida similar a pruebaingles.
         /// </summary>
-        public static string Accept {
+        public static string pruebatitulo {
             get {
-                return ResourceManager.GetString("Accept", resourceCulture);
+                return ResourceManager.GetString("pruebatitulo", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a Amount.
-        /// </summary>
-        public static string Amount {
-            get {
-                return ResourceManager.GetString("Amount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Enter the amount to convert.
-        /// </summary>
-        public static string AmountPlaceholder {
-            get {
-                return ResourceManager.GetString("AmountPlaceholder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a You must enter a numeric value in amount..
-        /// </summary>
-        public static string AmountValidation {
-            get {
-                return ResourceManager.GetString("AmountValidation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Error.
-        /// </summary>
-        public static string ErrorTitle {
-            get {
-                return ResourceManager.GetString("ErrorTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Loading rates....
-        /// </summary>
-        public static string LoadingRates {
-            get {
-                return ResourceManager.GetString("LoadingRates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Ready to convert.
-        /// </summary>
-        public static string ReadytoConvert {
-            get {
-                return ResourceManager.GetString("ReadytoConvert", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Select a source rate.
-        /// </summary>
-        public static string SelectSourceRate {
-            get {
-                return ResourceManager.GetString("SelectSourceRate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Select a target rate.
-        /// </summary>
-        public static string SelectTargetRate {
-            get {
-                return ResourceManager.GetString("SelectTargetRate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a You must select a source rate..
-        /// </summary>
-        public static string SourceRate {
-            get {
-                return ResourceManager.GetString("SourceRate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Source rate:.
-        /// </summary>
-        public static string SourceRatePlaceholder {
-            get {
-                return ResourceManager.GetString("SourceRatePlaceholder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a You must select a target rate..
-        /// </summary>
-        public static string TargetRate {
-            get {
-                return ResourceManager.GetString("TargetRate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Target rate:.
-        /// </summary>
-        public static string TargetRatePlaceholder {
-            get {
-                return ResourceManager.GetString("TargetRatePlaceholder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a Foreign Exchange.
+        ///   Busca una cadena traducida similar a titulo ingles.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca una cadena traducida similar a You must enter a numeric value in amount..
-        /// </summary>
-        public static string ValueValidation {
-            get {
-                return ResourceManager.GetString("ValueValidation", resourceCulture);
             }
         }
     }

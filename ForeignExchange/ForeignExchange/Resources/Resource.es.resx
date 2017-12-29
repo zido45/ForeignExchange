@@ -117,49 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accept" xml:space="preserve">
-    <value>Aceptar</value>
-  </data>
-  <data name="Amount" xml:space="preserve">
-    <value>Cantidad</value>
-  </data>
-  <data name="AmountPlaceholder" xml:space="preserve">
-    <value>Introduzca cantidad</value>
-  </data>
-  <data name="AmountValidation" xml:space="preserve">
-    <value>Debes ingresar un valor numerico en cantidad.</value>
-  </data>
-  <data name="ErrorTitle" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="LoadingRates" xml:space="preserve">
-    <value>Cargando tasas...</value>
-  </data>
-  <data name="ReadytoConvert" xml:space="preserve">
-    <value>Listo para convertir!</value>
-  </data>
-  <data name="SelectSourceRate" xml:space="preserve">
-    <value>Seleccione una...</value>
-  </data>
-  <data name="SelectTargetRate" xml:space="preserve">
-    <value>Seleccione una...</value>
-  </data>
-  <data name="SourceRate" xml:space="preserve">
-    <value>Deber elegir una tasa de origen.</value>
-  </data>
-  <data name="SourceRatePlaceholder" xml:space="preserve">
-    <value>Tasa origen:</value>
-  </data>
-  <data name="TargetRate" xml:space="preserve">
-    <value>Debes elegir una tasa de destino.</value>
-  </data>
-  <data name="TargetRatePlaceholder" xml:space="preserve">
-    <value>Tasa destino:</value>
+  <data name="pruebatitulo" xml:space="preserve">
+    <value>pruenaespañol</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Cambio de Divisas</value>
-  </data>
-  <data name="ValueValidation" xml:space="preserve">
-    <value>Debes ingresar un valor numérico.</value>
+    <value>Titulo ingles</value>
   </data>
 </root>

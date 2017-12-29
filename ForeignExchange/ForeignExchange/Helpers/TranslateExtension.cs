@@ -4,7 +4,6 @@ using System.Text;
 
 namespace ForeignExchange.Helpers
 {
-
     using System;
     using System.Globalization;
     using System.Reflection;
